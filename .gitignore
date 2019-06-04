@@ -1,5 +1,6 @@
 # Visual Studio user specific files
 .vs/
+Content/StarterContent/*
 
 # Compiled Object files
 *.slo
