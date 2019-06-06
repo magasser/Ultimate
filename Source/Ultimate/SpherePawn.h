@@ -23,7 +23,11 @@ protected:
 	void MoveRight(float Amount);
 	void Turn(float Amount);
 	void LookUp(float Amount);
+	void Shoot();
 
+	UPROPERTY(EditAnyWhere, Category = "Shooting")
+	TSubclassOf<class ABullet> BulletClass;
+	
 	class UFloatingPawnMovement* FloatingPawnMovement;
 
 	UPROPERTY(EditAnyWhere, Category = "Components")

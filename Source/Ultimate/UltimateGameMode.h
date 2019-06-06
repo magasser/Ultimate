@@ -13,6 +13,11 @@ class AUltimateGameMode : public AGameModeBase
 
 public:
 	AUltimateGameMode();
+
+	void OnTargetHit();
+
+	UPROPERTY(EditAnywhere, Category = "Game Rules")
+	int32 PointsToWin;
 };
 
 

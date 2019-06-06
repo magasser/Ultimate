@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "SpherePawn.h"
+#include "Bullet.h"
 #include "Classes/Components/StaticMeshComponent.h"
 #include "Classes/Components/InputComponent.h"
 #include "Classes/GameFramework/FloatingPawnMovement.h"
@@ -58,6 +59,25 @@ void ASpherePawn::LookUp(float Amount)
 	AddControllerPitchInput(Amount);
 }
 
+void ASpherePawn::Shoot()
+{
+	if (BulletClass)
+	{
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+		SpawnParams.bNoFail = true;
+		SpawnParams.Owner = this;
+		SpawnParams.Instigator = this;
+
+		FTransform BulletSpawnTransform;
+		BulletSpawnTransform.SetLocation(GetActorForwardVector() * 500.f + GetActorLocation());
+		BulletSpawnTransform.SetRotation(GetActorRotation().Quaternion());
+		BulletSpawnTransform.SetScale3D(FVector(1.f));
+
+		GetWorld()->SpawnActor<ABullet>(BulletClass, BulletSpawnTransform, SpawnParams);
+	}
+}
+
 // Called every frame
 void ASpherePawn::Tick(float DeltaTime)
 {
@@ -69,6 +89,8 @@ void ASpherePawn::Tick(float DeltaTime)
 void ASpherePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ASpherePawn::Shoot);
 
 	PlayerInputComponent->BindAxis("MoveForward", this, &ASpherePawn::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ASpherePawn::MoveRight);
