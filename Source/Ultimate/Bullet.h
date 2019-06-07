@@ -32,4 +32,7 @@ public:
 	UFUNCTION()
 	void OnBulletHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit);
 
+	UFUNCTION()
+	void OnDestroyed();
+
 };

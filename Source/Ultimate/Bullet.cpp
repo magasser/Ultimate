@@ -52,3 +52,9 @@ void ABullet::OnBulletHit(AActor * SelfActor, AActor * OtherActor, FVector Norma
 	}
 }
 
+void ABullet::OnDestroyed()
+{
+	UParticleSystemComponent* ParticleSystem = CreateDefaultSubobject<UParticleSystemComponent>("ParticleSystem");
+
+}
+
